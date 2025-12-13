@@ -9,38 +9,65 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CreateTaskRouteImport } from './routes/create-task'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TaskidEditRouteImport } from './routes/$taskid.edit'
 
+const CreateTaskRoute = CreateTaskRouteImport.update({
+  id: '/create-task',
+  path: '/create-task',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TaskidEditRoute = TaskidEditRouteImport.update({
+  id: '/$taskid/edit',
+  path: '/$taskid/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/create-task': typeof CreateTaskRoute
+  '/$taskid/edit': typeof TaskidEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create-task': typeof CreateTaskRoute
+  '/$taskid/edit': typeof TaskidEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/create-task': typeof CreateTaskRoute
+  '/$taskid/edit': typeof TaskidEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/create-task' | '/$taskid/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/create-task' | '/$taskid/edit'
+  id: '__root__' | '/' | '/create-task' | '/$taskid/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreateTaskRoute: typeof CreateTaskRoute
+  TaskidEditRoute: typeof TaskidEditRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/create-task': {
+      id: '/create-task'
+      path: '/create-task'
+      fullPath: '/create-task'
+      preLoaderRoute: typeof CreateTaskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$taskid/edit': {
+      id: '/$taskid/edit'
+      path: '/$taskid/edit'
+      fullPath: '/$taskid/edit'
+      preLoaderRoute: typeof TaskidEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateTaskRoute: CreateTaskRoute,
+  TaskidEditRoute: TaskidEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
