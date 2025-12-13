@@ -6,9 +6,12 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import Checkbox from '../components/Checkbox'
 
 type Task = {
+  id: string
   name: string
+  createdDate: string
   priority: string
   completed: boolean
 }
@@ -18,7 +21,7 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
-  const [tasks, setTasks] = React.useState<Task[]>([])
+  const [tasks, setTasks] = React.useState<Array<Task>>([])
 
   React.useEffect(() => {
     const tasksJSON = localStorage.getItem('tasks')
@@ -34,12 +37,9 @@ function App() {
 
   const columnHelper = createColumnHelper<Task>()
   const columns = [
+    columnHelper.accessor('completed', { header: 'Completed' }),
     columnHelper.accessor('name', { header: 'Name' }),
     columnHelper.accessor('priority', { header: 'Priority' }),
-    columnHelper.accessor('completed', {
-      header: 'Completed',
-      cell: info => (info.getValue() ? 'Yes' : 'No'),
-    }),
   ]
 
   const table = useReactTable({
@@ -68,18 +68,28 @@ function App() {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map(row => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id} className="border border-gray-300 px-4 py-2">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            {table.getRowModel().rows.map(row => {
+              const task = row.original
+              return (
+                <tr key={row.id}>
+                  {/* Completed column */}
+                  <td className="border border-gray-300 px-4 py-2">
+                    <Checkbox id={task.id} defaultChecked={task.completed} />
                   </td>
-                ))}
-              </tr>
-            ))}
+                  {/* Name column as row header with label for checkbox */}
+                  <th scope="row" className="border border-gray-300 px-4 py-2 text-left">
+                    <label htmlFor={task.id}>{task.name}</label>
+                  </th>
+                  {/* Priority column */}
+                  <td className="border border-gray-300 px-4 py-2">
+                    {task.priority}
+                  </td>
+                </tr>
+              )
+            })}
             {tasks.length === 0 && (
               <tr>
-                <td colSpan={columns.length} className="py-4 text-gray-500">
+                <td colSpan={3} className="py-4 text-gray-500">
                   No tasks found.
                 </td>
               </tr>
