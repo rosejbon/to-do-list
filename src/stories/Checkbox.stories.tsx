@@ -11,13 +11,11 @@ const meta = {
     tags: ['autodocs'],
     argTypes: {
         checked: { control: 'boolean' },
-        defaultChecked: { control: 'boolean' },
-        label: { control: 'text' },
         disabled: { control: 'boolean' },
         onCheckedChange: { action: 'checked changed' },
+        id: { control: 'text' },
     },
     args: {
-        label: 'Checkbox',
         onCheckedChange: fn(),
     },
 } satisfies Meta<typeof RadixCheckbox>;
@@ -25,36 +23,21 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultChecked: Story = {
-    args: {
-        defaultChecked: true,
-        label: 'Default Checked',
-    },
-};
 
 export const Unchecked: Story = {
     args: {
         checked: false,
-        label: 'Unchecked',
     },
 };
 
 export const Checked: Story = {
     args: {
         checked: true,
-        label: 'Checked',
     },
 };
 
 export const Disabled: Story = {
     args: {
         disabled: true,
-        label: 'Disabled',
-    },
-};
-
-export const WithLongLabel: Story = {
-    args: {
-        label: 'This is a checkbox with a longer label for demonstration purposes.',
     },
 };
