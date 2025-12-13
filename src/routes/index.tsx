@@ -35,6 +35,17 @@ function App() {
     }
   }, [])
 
+  // Handler to update completed state and localStorage
+  const handleCompletedChange = (id: string, checked: boolean) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: checked } : task,
+      )
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+      return updatedTasks
+    })
+  }
+
   const columnHelper = createColumnHelper<Task>()
   const columns = [
     columnHelper.accessor('completed', { header: 'Completed' }),
@@ -54,32 +65,48 @@ function App() {
       <div className="overflow-x-auto mt-6">
         <table className="mx-auto border-collapse border border-gray-300">
           <thead>
-            {table.getHeaderGroups().map(headerGroup => (
+            {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
+                {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     className="border border-gray-300 px-4 py-2 bg-gray-100"
                   >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map(row => {
+            {table.getRowModel().rows.map((row) => {
               const task = row.original
               return (
                 <tr key={row.id}>
                   {/* Completed column */}
                   <td className="border border-gray-300 px-4 py-2">
-                    <Checkbox id={task.id} defaultChecked={task.completed} />
+                    <Checkbox
+                      id={task.id}
+                      checked={task.completed}
+                      onCheckedChange={(checked) =>
+                        handleCompletedChange(task.id, checked)
+                      }
+                    />
                   </td>
                   {/* Name column as row header with label for checkbox */}
-                  <th scope="row" className="border border-gray-300 px-4 py-2 text-left">
-                    <label htmlFor={task.id}>{task.name}</label>
-                  </th>
+                  <td className="border border-gray-300 px-4 py-2 text-left">
+                    <label
+                      htmlFor={task.id}
+                      className={
+                        task.completed ? 'line-through text-gray-500' : ''
+                      }
+                    >
+                      {task.name}
+                    </label>
+                  </td>
                   {/* Priority column */}
                   <td className="border border-gray-300 px-4 py-2">
                     {task.priority}
