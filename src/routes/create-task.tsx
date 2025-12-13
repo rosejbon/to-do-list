@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import React, { useState } from 'react'
 import TextField from '../components/TextField'
 import { Button } from '../components/Button'
@@ -16,6 +16,7 @@ const SimpleForm = () => {
     const [name, setName] = useState('')
     const [priority, setPriority] = useState('')
     const [errors, setErrors] = useState<{ name?: string }>({})
+    const navigate = useNavigate()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -47,10 +48,8 @@ const SimpleForm = () => {
             tasks.push(newTask)
             localStorage.setItem('tasks', JSON.stringify(tasks))
 
-            // Reset form
-            setName('')
-            setPriority('')
-            setErrors({})
+            // Redirect to index after task creation
+            navigate({ to: '/' })
         }
     }
 
