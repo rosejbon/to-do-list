@@ -54,20 +54,6 @@ function App() {
     columnHelper.accessor('completed', { header: 'Completed' }),
     columnHelper.accessor('name', { header: 'Name' }),
     columnHelper.accessor('priority', { header: 'Priority' }),
-    columnHelper.display({
-      id: 'edit',
-      header: 'Edit',
-      cell: ({ row }) => {
-        const task = row.original
-        return (
-          <Button asChild>
-            <Link to="/edit-task" search={{ id: task.id }}>
-              Edit
-            </Link>
-          </Button>
-        )
-      },
-    }),
   ]
 
   const table = useReactTable({
@@ -95,6 +81,7 @@ function App() {
                     )}
                   </th>
                 ))}
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Edit</th>
               </tr>
             ))}
           </thead>
@@ -137,7 +124,7 @@ function App() {
                   {/* Edit column */}
                   <td className="border border-gray-300 px-4 py-2">
                     <Button>
-                      <Link to="/edit-task" search={{ id: task.id }}>
+                      <Link to="/$taskid/edit" params={{ taskid: task.id }}>
                         Edit
                       </Link>
                     </Button>
