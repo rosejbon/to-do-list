@@ -1,15 +1,15 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite'
-import { devtools } from '@tanstack/devtools-vite'
-import viteReact from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import { tanstackRouter } from '@tanstack/router-plugin/vite'
-import { fileURLToPath, URL } from 'node:url'
-
 // https://vitejs.dev/config/
 import path from 'node:path'
+import { URL, fileURLToPath } from 'node:url'
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vite'
+import viteReact from '@vitejs/plugin-react'
+import { devtools } from '@tanstack/devtools-vite'
+import tailwindcss from '@tailwindcss/vite'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
+
 const dirname =
   typeof __dirname !== 'undefined'
     ? __dirname
