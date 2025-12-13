@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import * as React from 'react'
 import {
   createColumnHelper,
@@ -6,6 +6,8 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+
+import { Button } from '../components/Button'
 import Checkbox from '../components/Checkbox'
 import PriorityBadge from '../components/PriorityBadge'
 
@@ -52,6 +54,20 @@ function App() {
     columnHelper.accessor('completed', { header: 'Completed' }),
     columnHelper.accessor('name', { header: 'Name' }),
     columnHelper.accessor('priority', { header: 'Priority' }),
+    columnHelper.display({
+      id: 'edit',
+      header: 'Edit',
+      cell: ({ row }) => {
+        const task = row.original
+        return (
+          <Button asChild>
+            <Link to="/edit-task" search={{ id: task.id }}>
+              Edit
+            </Link>
+          </Button>
+        )
+      },
+    }),
   ]
 
   const table = useReactTable({
@@ -118,12 +134,20 @@ function App() {
                       }
                     />
                   </td>
+                  {/* Edit column */}
+                  <td className="border border-gray-300 px-4 py-2">
+                    <Button>
+                      <Link to="/edit-task" search={{ id: task.id }}>
+                        Edit
+                      </Link>
+                    </Button>
+                  </td>
                 </tr>
               )
             })}
             {tasks.length === 0 && (
               <tr>
-                <td colSpan={3} className="py-4 text-gray-500">
+                <td colSpan={4} className="py-4 text-gray-500">
                   No tasks found.
                 </td>
               </tr>
