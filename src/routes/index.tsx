@@ -7,6 +7,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import Checkbox from '../components/Checkbox'
+import PriorityBadge from '../components/PriorityBadge'
 
 type Task = {
   id: string
@@ -109,7 +110,13 @@ function App() {
                   </td>
                   {/* Priority column */}
                   <td className="border border-gray-300 px-4 py-2">
-                    {task.priority}
+                    <PriorityBadge
+                      level={
+                        ["high", "medium", "low", "none"].includes(task.priority)
+                          ? (task.priority as "high" | "medium" | "low" | "none")
+                          : "none"
+                      }
+                    />
                   </td>
                 </tr>
               )
