@@ -26,9 +26,26 @@ const SimpleForm = () => {
         setErrors(newErrors)
 
         if (Object.keys(newErrors).length === 0) {
-            const formData = { name, priority }
-            localStorage.setItem('formData', JSON.stringify(formData))
-            console.log('Saved:', formData)
+            const newTask = {
+                id: Date.now().toString(),
+                name,
+                createdDate: new Date().toISOString(),
+                priority,
+                completed: false,
+            }
+
+            const tasksJSON = localStorage.getItem('tasks')
+            let tasks = []
+            if (tasksJSON) {
+                try {
+                    tasks = JSON.parse(tasksJSON)
+                    if (!Array.isArray(tasks)) tasks = []
+                } catch {
+                    tasks = []
+                }
+            }
+            tasks.push(newTask)
+            localStorage.setItem('tasks', JSON.stringify(tasks))
 
             // Reset form
             setName('')
