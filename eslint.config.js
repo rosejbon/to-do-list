@@ -5,4 +5,10 @@ import storybook from "eslint-plugin-storybook";
 
 import { tanstackConfig } from '@tanstack/eslint-config'
 
-export default [...tanstackConfig, ...storybook.configs["flat/recommended"]];
+export default [
+    ...tanstackConfig,
+    ...storybook.configs["flat/recommended"],
+    {
+        ignores: ['.storybook/**'],
+    },
+];
