@@ -38,8 +38,8 @@ function EditTask() {
         tasks = []
       }
     }
-    const updatedTasks = tasks.map((task: any) =>
-      task.id === taskid ? { ...task, name, priority } : task
+    const updatedTasks = tasks.map((t: any) =>
+      t.id === taskid ? { ...t, name, priority } : t
     )
     localStorage.setItem('tasks', JSON.stringify(updatedTasks))
     navigate({ to: '/' })
