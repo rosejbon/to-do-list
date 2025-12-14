@@ -129,7 +129,7 @@ function App() {
             ))}
             {tasks.length === 0 && (
               <tr>
-                <td colSpan={6} className="py-4 text-gray-500">
+                <td colSpan={5} className="py-4 text-gray-500">
                   No tasks found.
                 </td>
               </tr>
