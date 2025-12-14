@@ -30,15 +30,17 @@ export function TaskRow({
     return (
         <tr>
             {/* Completed column */}
-            <td className="border border-gray-300 px-4 py-2">
-                <Checkbox
-                    id={task.id}
-                    checked={task.completed}
-                    onCheckedChange={(checked) => onCompletedChange(task.id, checked)}
-                />
+            <td className="border-black border-2 px-4 py-2">
+                <div className="flex justify-center items-center w-full h-full">
+                    <Checkbox
+                        id={task.id}
+                        checked={task.completed}
+                        onCheckedChange={(checked) => onCompletedChange(task.id, checked)}
+                    />
+                </div>
             </td>
             {/* Task name column */}
-            <td className="border border-gray-300 px-4 py-2 text-left">
+            <td className="border-black border-2 px-4 py-2 text-left">
                 <label
                     htmlFor={task.id}
                     className={task.completed ? 'line-through text-gray-500' : ''}
@@ -47,7 +49,7 @@ export function TaskRow({
                 </label>
             </td>
             {/* Priority column */}
-            <td className="border border-gray-300 px-4 py-2">
+            <td className="border-black border-2 px-4 py-2 text-center">
                 <PriorityBadge
                     level={
                         ['high', 'medium', 'low', 'none'].includes(task.priority)
@@ -62,11 +64,11 @@ export function TaskRow({
                 This is a workaround for Storybook compatibility, since Storybook does not play well with TanStack Router's <Link> component.
                 See: https://github.com/TanStack/router/discussions/952
             */}
-            <td className="border border-gray-300 px-4 py-2">
+            <td className="border-black border-2 px-4 py-2 text-center">
                 {children}
             </td>
             {/* Delete column */}
-            <td className="border border-gray-300 px-4 py-2">
+            <td className="border-black border-2 px-4 py-2 text-center">
                 <DeleteDialog
                     open={deleteTask === task.id}
                     onOpenChange={(open) => onOpenDelete(open ? task.id : null)}

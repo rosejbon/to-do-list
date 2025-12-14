@@ -66,7 +66,9 @@ function App() {
 
   const columnHelper = createColumnHelper<Task>()
   const columns = [
-    columnHelper.accessor('completed', { header: 'Completed' }),
+    columnHelper.accessor('completed', {
+      header: () => <span className="sr-only">Completed</span>,
+    }),
     columnHelper.accessor('name', { header: 'Name' }),
     columnHelper.accessor('priority', { header: 'Priority' }),
   ]
@@ -78,8 +80,8 @@ function App() {
   })
 
   return (
-    <div className="text-center">
-      <h1>Welcome to the To-Do List App</h1>
+    <main className="container mx-auto px-4">
+      <h1 className='font-extrabold text-4xl py-8'>Welcome to the To-Do List App</h1>
       {deleteMessage && (
         <div
           role="status"
@@ -89,15 +91,15 @@ function App() {
           {deleteMessage}
         </div>
       )}
-      <div className="overflow-x-auto mt-6">
-        <table className="mx-auto border-collapse border border-gray-300">
+      <div className="overflow-x-auto w-full">
+        <table className="w-full border-collapse border border-gray-300">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="border border-gray-300 px-4 py-2 bg-gray-100"
+                    className="border-black border-2 px-4 py-2 bg-gray-100"
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -105,8 +107,8 @@ function App() {
                     )}
                   </th>
                 ))}
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Edit</th>
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Delete</th>
+                <th className=" border-black border-2 px-4 py-2 bg-gray-100 ">Edit</th>
+                <th className=" border-black border-2 px-4 py-2 bg-gray-100">Delete</th>
               </tr>
             ))}
           </thead>
@@ -137,6 +139,6 @@ function App() {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   )
 }
