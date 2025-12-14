@@ -4,11 +4,11 @@ import { Link } from '@tanstack/react-router'
 export default function Header() {
     return (
         <header className="w-full border-b-4 bg-white ">
-            <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4">
                 {/* Logo */}
                 <Link
                     to="/"
-                    className="header__logo"
+                    className="focus:ring-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2"
                     aria-label="Navigate to the home page"
                 >
                     <svg
@@ -36,7 +36,7 @@ export default function Header() {
                             <NavigationMenu.Link asChild>
                                 <Link
                                     to="/"
-                                    className={`decoration-2 underline-offset-3 underline text-md text-gray-700 hover:text-gray-900 ${location.pathname === '/' ? 'font-extrabold' : 'font-medium'}`}
+                                    className={`decoration-2 underline-offset-3 underline text-md text-gray-700 focus:ring-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-4 hover:text-gray-900 ${location.pathname === '/' ? 'font-extrabold' : 'font-medium'}`}
                                 >
                                     Home
                                 </Link>
@@ -47,7 +47,7 @@ export default function Header() {
                             <NavigationMenu.Link asChild>
                                 <Link
                                     to="/create-task"
-                                    className={`decoration-2 underline-offset-3 underline text-md text-gray-700 hover:text-gray-900 ${location.pathname === '/create-task' ? 'font-extrabold' : 'font-medium'}`}
+                                    className={`decoration-2 underline-offset-3 underline text-md text-gray-700 focus:ring-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-4 hover:text-gray-900 ${location.pathname === '/create-task' ? 'font-extrabold' : 'font-medium'}`}
                                 >
                                     Add Task
                                 </Link>
