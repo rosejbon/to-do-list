@@ -138,7 +138,7 @@ function App() {
                   <td className="border border-gray-300 px-4 py-2">
                     <Button>
                       <Link to="/$taskid/edit" params={{ taskid: task.id }}>
-                        Edit
+                        Edit <span className='sr-only'>{task.name} task</span>
                       </Link>
                     </Button>
                   </td>
