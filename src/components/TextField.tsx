@@ -12,7 +12,7 @@ const TextField: React.FC<TextFieldProps> = ({ label, id, error, ...props }) => 
         <div className="flex flex-col space-y-1 w-full">
             <LabelPrimitive.Root
                 htmlFor={id}
-                className="text-sm font-medium text-gray-700"
+                className="text-md font-bold text-gray-700"
             >
                 {label}
             </LabelPrimitive.Root>
@@ -20,13 +20,13 @@ const TextField: React.FC<TextFieldProps> = ({ label, id, error, ...props }) => 
                 id={id}
                 {...props}
                 className={`
-                    px-3 py-2 border rounded-md text-sm 
-                    focus:outline-none focus:ring-2 focus:ring-blue-500 
-                    ${error ? "border-red-500" : "border-gray-300"} 
+                    px-3 py-2 text-sm border-2
+                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 
+                    ${error ? "border-red-500" : "border-black"} 
                     ${props.className || ""}
                 `}
             />
-            {error && <span className="text-xs text-red-500">{error}</span>}
+            {error && <span className="text-xs text-red-800">{error}</span>}
         </div>
     );
 };
