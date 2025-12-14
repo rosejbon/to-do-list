@@ -50,14 +50,14 @@ function EditTask() {
   }
 
   return (
-    <div>
-      <h1>Edit Task</h1>
+    <main className="container mx-auto px-4">
+      <h1 className='font-extrabold text-4xl py-8'>Edit Task</h1>
       <TaskForm
         initialName={task.name}
         initialPriority={task.priority}
         onSubmit={handleEdit}
         submitLabel="Edit task"
       />
-    </div>
+    </main>
   )
 }

@@ -34,9 +34,9 @@ function RouteComponent() {
     }
 
     return (
-        <div>
-            <h1>Create a new task</h1>
+        <main className="container mx-auto px-4">
+            <h1 className='font-extrabold text-4xl py-8'>Create a new task</h1>
             <TaskForm onSubmit={handleCreate} submitLabel="Add task" />
-        </div>
+        </main>
     )
 }
