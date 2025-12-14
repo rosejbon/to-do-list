@@ -91,54 +91,60 @@ function App() {
           {deleteMessage}
         </div>
       )}
-      <div className="overflow-x-auto w-full">
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="border-black border-2 px-4 py-2 bg-gray-100"
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
-                  </th>
-                ))}
-                <th className=" border-black border-2 px-4 py-2 bg-gray-100 ">Edit</th>
-                <th className=" border-black border-2 px-4 py-2 bg-gray-100">Delete</th>
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <TaskRow
-                key={row.id}
-                task={row.original}
-                onCompletedChange={handleCompletedChange}
-                onDelete={handleDeleteTask}
-                onOpenDelete={setDeleteTask}
-                deleteTask={deleteTask}
-              >
-                <Button asChild>
-                  <Link to="/$taskid/edit" params={{ taskid: row.original.id }}>
-                    Edit <span className="sr-only">{row.original.name} task</span>
-                  </Link>
-                </Button>
-              </TaskRow>
-            ))}
-            {tasks.length === 0 && (
-              <tr>
-                <td colSpan={5} className="py-4 text-gray-500">
-                  No tasks found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      {tasks.length === 0 ? (
+        <div className="flex flex-col items-start justify-center py-8">
+          <p className="mb-6 text-xl text-black max-w-xl">
+            Either you have done everything already or there are still things for you to add to your list.
+          </p>
+          <Button asChild>
+            <Link to="/create-task">
+              Add your first to-do
+            </Link>
+          </Button>
+        </div>
+      ) : (
+        <div className="overflow-x-auto w-full">
+          <table className="w-full border-collapse border border-gray-300">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className="border-black border-2 px-4 py-2 bg-gray-100"
+                    >
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    </th>
+                  ))}
+                  <th className=" border-black border-2 px-4 py-2 bg-gray-100 ">Edit</th>
+                  <th className=" border-black border-2 px-4 py-2 bg-gray-100">Delete</th>
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <TaskRow
+                  key={row.id}
+                  task={row.original}
+                  onCompletedChange={handleCompletedChange}
+                  onDelete={handleDeleteTask}
+                  onOpenDelete={setDeleteTask}
+                  deleteTask={deleteTask}
+                >
+                  <Button asChild>
+                    <Link to="/$taskid/edit" params={{ taskid: row.original.id }}>
+                      Edit <span className="sr-only">{row.original.name} task</span>
+                    </Link>
+                  </Button>
+                </TaskRow>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
   )
 }
