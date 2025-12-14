@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import * as React from 'react'
 import {
   createColumnHelper,
@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
 import { Button } from '../components/Button'
 import Checkbox from '../components/Checkbox'
@@ -25,6 +26,7 @@ export const Route = createFileRoute('/')({
 
 function App() {
   const [tasks, setTasks] = React.useState<Array<Task>>([])
+  const [deleteTask, setDeleteTask] = React.useState<string | null>(null)
 
   React.useEffect(() => {
     const tasksJSON = localStorage.getItem('tasks')
@@ -47,6 +49,16 @@ function App() {
       localStorage.setItem('tasks', JSON.stringify(updatedTasks))
       return updatedTasks
     })
+  }
+
+  // Handler to delete a task
+  const handleDeleteTask = (id: string) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.filter((task) => task.id !== id)
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+      return updatedTasks
+    })
+    setDeleteTask(null)
   }
 
   const columnHelper = createColumnHelper<Task>()
@@ -82,6 +94,7 @@ function App() {
                   </th>
                 ))}
                 <th className="border border-gray-300 px-4 py-2 bg-gray-100">Edit</th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Delete</th>
               </tr>
             ))}
           </thead>
@@ -129,12 +142,43 @@ function App() {
                       </Link>
                     </Button>
                   </td>
+                  {/* Delete column */}
+                  <td className="border border-gray-300 px-4 py-2">
+                    <AlertDialog.Root open={deleteTask === task.id} onOpenChange={(open) => setDeleteTask(open ? task.id : null)}>
+                      <AlertDialog.Trigger asChild>
+                        <Button variant="secondary" onClick={() => setDeleteTask(task.id)}>
+                          Delete <span className='sr-only'>{task.name} task</span>
+                        </Button>
+                      </AlertDialog.Trigger>
+                      <AlertDialog.Portal>
+                        <AlertDialog.Overlay className="fixed inset-0 bg-black/30" />
+                        <AlertDialog.Content className="fixed top-1/2 left-1/2 bg-white p-6 rounded shadow-lg -translate-x-1/2 -translate-y-1/2">
+                          <AlertDialog.Title className="font-bold text-lg mb-2">Delete Task</AlertDialog.Title>
+                          <AlertDialog.Description className="mb-4">
+                            Are you sure you want to delete <span className="font-semibold">{task.name}</span>? This action cannot be undone.
+                          </AlertDialog.Description>
+                          <div className="flex justify-end gap-2">
+                            <AlertDialog.Cancel asChild>
+                              <Button variant="primary" onClick={() => setDeleteTask(null)}>
+                                Cancel
+                              </Button>
+                            </AlertDialog.Cancel>
+                            <AlertDialog.Action asChild>
+                              <Button variant="secondary" onClick={() => handleDeleteTask(task.id)}>
+                                Delete
+                              </Button>
+                            </AlertDialog.Action>
+                          </div>
+                        </AlertDialog.Content>
+                      </AlertDialog.Portal>
+                    </AlertDialog.Root>
+                  </td>
                 </tr>
               )
             })}
             {tasks.length === 0 && (
               <tr>
-                <td colSpan={4} className="py-4 text-gray-500">
+                <td colSpan={6} className="py-4 text-gray-500">
                   No tasks found.
                 </td>
               </tr>
