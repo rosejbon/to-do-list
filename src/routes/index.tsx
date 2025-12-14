@@ -6,10 +6,10 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
 import { Button } from '../components/Button'
 import Checkbox from '../components/Checkbox'
+import DeleteDialog from '../components/DeleteDialog'
 import PriorityBadge from '../components/PriorityBadge'
 
 type Task = {
@@ -27,6 +27,7 @@ export const Route = createFileRoute('/')({
 function App() {
   const [tasks, setTasks] = React.useState<Array<Task>>([])
   const [deleteTask, setDeleteTask] = React.useState<string | null>(null)
+  const [deleteMessage, setDeleteMessage] = React.useState<string>('')
 
   React.useEffect(() => {
     const tasksJSON = localStorage.getItem('tasks')
@@ -54,8 +55,12 @@ function App() {
   // Handler to delete a task
   const handleDeleteTask = (id: string) => {
     setTasks((prevTasks) => {
+      const taskToDelete = prevTasks.find((task) => task.id === id)
       const updatedTasks = prevTasks.filter((task) => task.id !== id)
       localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+      if (taskToDelete) {
+        setDeleteMessage(`Task "${taskToDelete.name}" has been deleted.`)
+      }
       return updatedTasks
     })
     setDeleteTask(null)
@@ -77,6 +82,15 @@ function App() {
   return (
     <div className="text-center">
       <h1>Welcome to the To-Do List App</h1>
+      {deleteMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="sr-only"
+        >
+          {deleteMessage}
+        </div>
+      )}
       <div className="overflow-x-auto mt-6">
         <table className="mx-auto border-collapse border border-gray-300">
           <thead>
@@ -144,34 +158,13 @@ function App() {
                   </td>
                   {/* Delete column */}
                   <td className="border border-gray-300 px-4 py-2">
-                    <AlertDialog.Root open={deleteTask === task.id} onOpenChange={(open) => setDeleteTask(open ? task.id : null)}>
-                      <AlertDialog.Trigger asChild>
-                        <Button variant="secondary" onClick={() => setDeleteTask(task.id)}>
-                          Delete <span className='sr-only'>{task.name} task</span>
-                        </Button>
-                      </AlertDialog.Trigger>
-                      <AlertDialog.Portal>
-                        <AlertDialog.Overlay className="fixed inset-0 bg-black/30" />
-                        <AlertDialog.Content className="fixed top-1/2 left-1/2 bg-white p-6 rounded shadow-lg -translate-x-1/2 -translate-y-1/2">
-                          <AlertDialog.Title className="font-bold text-lg mb-2">Delete Task</AlertDialog.Title>
-                          <AlertDialog.Description className="mb-4">
-                            Are you sure you want to delete <span className="font-semibold">{task.name}</span>? This action cannot be undone.
-                          </AlertDialog.Description>
-                          <div className="flex justify-end gap-2">
-                            <AlertDialog.Cancel asChild>
-                              <Button variant="primary" onClick={() => setDeleteTask(null)}>
-                                Cancel
-                              </Button>
-                            </AlertDialog.Cancel>
-                            <AlertDialog.Action asChild>
-                              <Button variant="secondary" onClick={() => handleDeleteTask(task.id)}>
-                                Delete
-                              </Button>
-                            </AlertDialog.Action>
-                          </div>
-                        </AlertDialog.Content>
-                      </AlertDialog.Portal>
-                    </AlertDialog.Root>
+                    <DeleteDialog
+                      open={deleteTask === task.id}
+                      onOpenChange={(open) => setDeleteTask(open ? task.id : null)}
+                      onDelete={() => handleDeleteTask(task.id)}
+                      onCancel={() => setDeleteTask(null)}
+                      taskName={task.name}
+                    />
                   </td>
                 </tr>
               )
