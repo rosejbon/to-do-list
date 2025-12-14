@@ -8,9 +8,7 @@ import {
 } from '@tanstack/react-table'
 
 import { Button } from '../components/Button'
-import Checkbox from '../components/Checkbox'
-import DeleteDialog from '../components/DeleteDialog'
-import PriorityBadge from '../components/PriorityBadge'
+import { TaskRow } from '../components/TaskRow'
 
 type Task = {
   id: string
@@ -113,62 +111,22 @@ function App() {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => {
-              const task = row.original
-              return (
-                <tr key={row.id}>
-                  {/* Completed column */}
-                  <td className="border border-gray-300 px-4 py-2">
-                    <Checkbox
-                      id={task.id}
-                      checked={task.completed}
-                      onCheckedChange={(checked) =>
-                        handleCompletedChange(task.id, checked)
-                      }
-                    />
-                  </td>
-                  {/* Name column as row header with label for checkbox */}
-                  <td className="border border-gray-300 px-4 py-2 text-left">
-                    <label
-                      htmlFor={task.id}
-                      className={
-                        task.completed ? 'line-through text-gray-500' : ''
-                      }
-                    >
-                      {task.name}
-                    </label>
-                  </td>
-                  {/* Priority column */}
-                  <td className="border border-gray-300 px-4 py-2">
-                    <PriorityBadge
-                      level={
-                        ["high", "medium", "low", "none"].includes(task.priority)
-                          ? (task.priority as "high" | "medium" | "low" | "none")
-                          : "none"
-                      }
-                    />
-                  </td>
-                  {/* Edit column */}
-                  <td className="border border-gray-300 px-4 py-2">
-                    <Button>
-                      <Link to="/$taskid/edit" params={{ taskid: task.id }}>
-                        Edit <span className='sr-only'>{task.name} task</span>
-                      </Link>
-                    </Button>
-                  </td>
-                  {/* Delete column */}
-                  <td className="border border-gray-300 px-4 py-2">
-                    <DeleteDialog
-                      open={deleteTask === task.id}
-                      onOpenChange={(open) => setDeleteTask(open ? task.id : null)}
-                      onDelete={() => handleDeleteTask(task.id)}
-                      onCancel={() => setDeleteTask(null)}
-                      taskName={task.name}
-                    />
-                  </td>
-                </tr>
-              )
-            })}
+            {table.getRowModel().rows.map((row) => (
+              <TaskRow
+                key={row.id}
+                task={row.original}
+                onCompletedChange={handleCompletedChange}
+                onDelete={handleDeleteTask}
+                onOpenDelete={setDeleteTask}
+                deleteTask={deleteTask}
+              >
+                <Button asChild>
+                  <Link to="/$taskid/edit" params={{ taskid: row.original.id }}>
+                    Edit <span className="sr-only">{row.original.name} task</span>
+                  </Link>
+                </Button>
+              </TaskRow>
+            ))}
             {tasks.length === 0 && (
               <tr>
                 <td colSpan={6} className="py-4 text-gray-500">
