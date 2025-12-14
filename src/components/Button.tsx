@@ -24,12 +24,12 @@ export const Button = React.forwardRef<
     const Comp = asChild ? Slot : 'button'
 
     const baseStyles =
-        'inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+        'inline-flex items-center gap-2 rounded-md px-4 py-2 text-md font-bold transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
 
     const variantStyles =
         variant === 'secondary'
-            ? 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400'
-            : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600'
+            ? 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-indigo-600'
+            : 'bg-black text-white hover:bg-gray-800 focus:ring-indigo-600'
 
     return (
         <Comp
@@ -48,7 +48,7 @@ export const Button = React.forwardRef<
             </Slottable>
 
             {rightElement && (
-                <span className="inline-flex shrink-0">
+                <span className="inline-flex shrink-0 w-8 h-8 ml-auto">
                     {rightElement}
                 </span>
             )}
