@@ -1,4 +1,3 @@
-
 # To-Do List App
 
 An accessible, modern, and fully client-side to-do list app built with React, TypeScript, TanStack Router, Tailwind CSS, and Vite. Includes Storybook for UI development.
@@ -49,16 +48,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Scripts
 
-| Script              | Description                       |
-|---------------------|-----------------------------------|
-| `npm run dev`       | Start Vite dev server             |
-| `npm run build`     | Build for production              |
-| `npm run preview`   | Preview production build          |
-| `npm run lint`      | Run ESLint                        |
-| `npm run format`    | Run Prettier                      |
-| `npm run check`     | Format & fix lint                 |
-| `npm run storybook` | Start Storybook UI                |
-| `npm run build-storybook` | Build Storybook static site   |
+| Script                    | Description                 |
+| ------------------------- | --------------------------- |
+| `npm run dev`             | Start Vite dev server       |
+| `npm run build`           | Build for production        |
+| `npm run check`           | Format & fix lint           |
+| `npm run storybook`       | Start Storybook UI          |
 
 ## Project Structure
 
@@ -81,8 +76,6 @@ npm run storybook
 Lint and format your code:
 
 ```bash
-npm run lint
-npm run format
 npm run check
 ```
 
@@ -96,10 +89,4 @@ Build the app for production:
 
 ```bash
 npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview
 ```
