@@ -8,16 +8,20 @@ export const Route = createFileRoute('/$taskid/edit')({
 
 function EditTask() {
   const navigate = useNavigate()
-  const { taskid } = useParams({ strict: false });
+  const { taskid } = useParams({ strict: false })
 
-  const [task, setTask] = useState<{ name: string; priority: string } | null>(null)
+  const [task, setTask] = useState<{ name: string; priority: string } | null>(
+    null,
+  )
 
   useEffect(() => {
     const tasksJSON = localStorage.getItem('tasks')
     if (tasksJSON) {
       try {
         const tasks = JSON.parse(tasksJSON)
-        const found = Array.isArray(tasks) ? tasks.find((t: any) => t.id === taskid) : null
+        const found = Array.isArray(tasks)
+          ? tasks.find((t: any) => t.id === taskid)
+          : null
         if (found) {
           setTask({ name: found.name, priority: found.priority })
         }
@@ -27,7 +31,13 @@ function EditTask() {
     }
   }, [taskid])
 
-  const handleEdit = ({ name, priority }: { name: string; priority: string }) => {
+  const handleEdit = ({
+    name,
+    priority,
+  }: {
+    name: string
+    priority: string
+  }) => {
     const tasksJSON = localStorage.getItem('tasks')
     let tasks = []
     if (tasksJSON) {
@@ -39,7 +49,7 @@ function EditTask() {
       }
     }
     const updatedTasks = tasks.map((t: any) =>
-      t.id === taskid ? { ...t, name, priority } : t
+      t.id === taskid ? { ...t, name, priority } : t,
     )
     localStorage.setItem('tasks', JSON.stringify(updatedTasks))
     navigate({ to: '/' })
@@ -51,7 +61,7 @@ function EditTask() {
 
   return (
     <main className="container mx-auto px-4">
-      <h1 className='font-extrabold text-4xl py-8'>Edit Task</h1>
+      <h1 className="font-extrabold text-4xl py-8">Edit Task</h1>
       <TaskForm
         initialName={task.name}
         initialPriority={task.priority}
