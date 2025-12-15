@@ -1,7 +1,7 @@
 
 # To-Do List App
 
-An accessible, modern, and fully client-side to-do list app built with React, TypeScript, TanStack Router, Tailwind CSS, and Vite. Includes Storybook for UI development and Vitest for testing.
+An accessible, modern, and fully client-side to-do list app built with React, TypeScript, TanStack Router, Tailwind CSS, and Vite. Includes Storybook for UI development.
 
 ---
 
@@ -51,7 +51,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `npm run dev`       | Start Vite dev server             |
 | `npm run build`     | Build for production              |
 | `npm run preview`   | Preview production build          |
-| `npm run test`      | Run Vitest tests                  |
 | `npm run lint`      | Run ESLint                        |
 | `npm run format`    | Run Prettier                      |
 | `npm run check`     | Format & fix lint                 |
@@ -73,16 +72,6 @@ Run Storybook for isolated component development:
 ```bash
 npm run storybook
 ```
-
-## Testing
-
-Run all tests with:
-
-```bash
-npm run test
-```
-
-Vitest is configured for browser and component testing. Playwright is used for browser automation.
 
 ## Linting & Formatting
 
@@ -111,11 +100,3 @@ Preview the production build:
 ```bash
 npm run preview
 ```
-
-## License
-
-MIT
-
----
-
-_Made with ❤️ by Rose Bonner_
