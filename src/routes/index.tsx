@@ -103,7 +103,7 @@ function App() {
           </Button>
         </div>
       ) : (
-          <div className="overflow-auto w-full focus:outline-2 focus:outline-indigo-600 focus:shadow-xl" role="region" aria-labelledby="to-do-list" tabIndex={0}>
+          <div className="overflow-auto w-full pb-4 focus:outline-2 focus:outline-indigo-600 focus:shadow-xl" role="region" aria-labelledby="to-do-list" tabIndex={0}>
           <table className="w-min md:w-full border-collapse border border-gray-300">
             <caption id="to-do-list" className='font-bold text-2xl py-4 text-left'>To-do list</caption>
             <thead>
