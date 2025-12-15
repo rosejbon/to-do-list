@@ -45,14 +45,16 @@ const TaskForm = ({
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md">
-            <TextField
-                label="Task Name"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                error={errors.name}
-                required={true}
-            />
+            <div className="flex flex-col space-y-1 w-full">
+                <TextField
+                    label="Task Name"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required={true}
+                    error={errors.name}
+                />
+            </div>
             <div className="flex flex-col space-y-1">
                 <label className="text-md font-bold text-gray-700">Priority</label>
                 <RadixSelect

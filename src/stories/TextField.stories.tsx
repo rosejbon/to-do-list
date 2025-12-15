@@ -13,6 +13,7 @@ const meta = {
         label: { control: 'text' },
         id: { control: 'text' },
         error: { control: 'text' },
+        required: { control: 'boolean' },
         type: { control: 'text' },
         placeholder: { control: 'text' },
         value: { control: 'text' },
@@ -32,18 +33,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const WithError: Story = {
+export const Required: Story = {
     args: {
-        error: 'This field is required',
-        value: '',
+        required: true,
+        label: 'Email',
+        id: 'email',
+        placeholder: 'Enter your email',
     },
 };
 
-export const Password: Story = {
+export const WithError: Story = {
     args: {
-        label: 'Password',
-        id: 'password',
-        type: 'password',
-        placeholder: 'Enter your password',
+        label: 'Field with Error',
+        error: 'This field is required',
+        placeholder: 'Please fill out this field',
+        value: '',
     },
 };
