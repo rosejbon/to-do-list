@@ -25,8 +25,11 @@ An accessible, modern, and fully client-side to-do list app built with React, Ty
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Vite](https://vitejs.dev/)
 - [Storybook](https://storybook.js.org/)
-- [Vitest](https://vitest.dev/) & [Playwright](https://playwright.dev/) for testing
 - [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/)
+
+## Requirements
+
+- Node.js 24.12.0 or higher
 
 ## Getting Started
 
