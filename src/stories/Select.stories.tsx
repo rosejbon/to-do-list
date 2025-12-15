@@ -22,6 +22,7 @@ const meta = {
         placeholder: { control: 'text' },
         disabled: { control: 'boolean' },
         onValueChange: { action: 'value changed' },
+        id: { control: 'text' },
     },
     args: {
         options,

@@ -1,4 +1,3 @@
-import * as React from "react";
 import * as Select from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
@@ -14,6 +13,7 @@ export interface RadixSelectProps {
     placeholder?: string;
     onValueChange?: (value: string) => void;
     disabled?: boolean;
+    id?: string;
 }
 
 export const RadixSelect: React.FC<RadixSelectProps> = ({
@@ -23,6 +23,7 @@ export const RadixSelect: React.FC<RadixSelectProps> = ({
     placeholder = "Select an option",
     onValueChange,
     disabled = false,
+    id,
 }) => {
     return (
         <Select.Root
@@ -39,7 +40,7 @@ export const RadixSelect: React.FC<RadixSelectProps> = ({
                     focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2
                     disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400
                 "
-                aria-label="Select"
+                id={id}
             >
                 <Select.Value placeholder={placeholder} />
                 <Select.Icon className="ml-2 text-gray-500">
@@ -49,10 +50,7 @@ export const RadixSelect: React.FC<RadixSelectProps> = ({
 
             <Select.Portal>
                 <Select.Content
-                    className="
-                        z-50 overflow-hidden border-2 border-black
-                        bg-white shadow-lg
-                    "
+                    className="overflow-hidden border-2 border-black bg-white shadow-lg"
                     position="popper"
                     sideOffset={4}
                 >
@@ -67,7 +65,7 @@ export const RadixSelect: React.FC<RadixSelectProps> = ({
                                 value={option.value}
                                 className="
                                     relative flex cursor-pointer select-none items-center
-                                    rounded-sm px-8 py-2 text-sm text-gray-900
+                                    rounded-sm px-8 py-2 text-sm text-gray-900 w-full
                                     outline-none
                                     focus:bg-indigo-50 focus:ring-indigo-600 focus:ring-offset-2 
                                     data-disabled:pointer-events-none data-disabled:opacity-50
@@ -84,6 +82,7 @@ export const RadixSelect: React.FC<RadixSelectProps> = ({
                     <Select.ScrollDownButton className="flex items-center justify-center py-1 text-black">
                         <ChevronDown className="h-4 w-4" />
                     </Select.ScrollDownButton>
+                    <Select.Arrow />
                 </Select.Content>
             </Select.Portal>
         </Select.Root>

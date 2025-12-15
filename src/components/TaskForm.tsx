@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { Label } from "@radix-ui/react-label";
+
 import TextField from './TextField'
 import { Button } from './Button'
 import RadixSelect from './Select'
 import type { RadixSelectOption } from './Select'
+
 
 const PriorityLevel: Array<RadixSelectOption> = [
     { label: 'low', value: 'low' },
@@ -56,12 +59,13 @@ const TaskForm = ({
                 />
             </div>
             <div className="flex flex-col space-y-1">
-                <label className="text-md font-bold text-gray-700">Priority</label>
+                <Label htmlFor="priority" className="text-md font-bold text-gray-700">Priority</Label>
                 <RadixSelect
                     options={PriorityLevel}
                     value={priority}
                     onValueChange={setPriority}
                     placeholder="Select a priority"
+                    id="priority"
                 />
             </div>
             <Button
